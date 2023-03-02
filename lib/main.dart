@@ -1,78 +1,71 @@
+import 'package:ant/screens/balances_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future main() async {
+  await dotenv.load(
+    fileName: '.env',
+  );
   runApp(const App());
 }
 
-class App extends StatefulWidget {
+class App extends StatelessWidget {
   const App({super.key});
 
   @override
-  State<App> createState() => _AppState();
-}
-
-class _AppState extends State<App> {
-  @override
   Widget build(BuildContext context) {
+    final textScale = MediaQuery.textScaleFactorOf(context);
+
     return MaterialApp(
-      themeMode: themeMode,
+      themeMode: ThemeMode.system,
       title: 'Algorithmic-Trading',
       theme: ThemeData(
         useMaterial3: true,
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           backgroundColor: Colors.white,
-          systemOverlayStyle: SystemUiOverlayStyle(
+          systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarBrightness: Brightness.light,
             statusBarColor: Colors.transparent,
             statusBarIconBrightness: Brightness.dark,
           ),
           titleTextStyle: TextStyle(
-            fontSize: 16 + 8,
+            fontSize: textScale * 8 * 3,
             fontWeight: FontWeight.bold,
             color: Colors.black,
           ),
         ),
         primaryColor: Colors.black,
+        scaffoldBackgroundColor: Colors.white,
       ),
       darkTheme: ThemeData(
         useMaterial3: true,
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           backgroundColor: Colors.black,
           titleTextStyle: TextStyle(
             color: Colors.white,
-            fontSize: 16 + 8,
+            fontSize: textScale * 8 * 3,
             fontWeight: FontWeight.bold,
           ),
-          systemOverlayStyle: SystemUiOverlayStyle(
+          systemOverlayStyle: const SystemUiOverlayStyle(
             statusBarBrightness: Brightness.dark,
             statusBarColor: Colors.transparent,
             statusBarIconBrightness: Brightness.light,
           ),
         ),
-        primaryColor: Colors.white,
-      ),
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'login',
+        textTheme: const TextTheme(
+          bodySmall: TextStyle(
+            color: Colors.white,
+          ),
+          bodyMedium: TextStyle(
+            color: Colors.white,
           ),
         ),
+        primaryColor: Colors.white,
+        scaffoldBackgroundColor: Colors.black,
       ),
+      home: BalancesScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
-
-  @override
-  initState() {
-    super.initState();
-    themeMode = ThemeMode.system;
-  }
-
-  void changeTheme() {
-    setState(() => themeMode = ThemeMode.system);
-  }
-
-  late ThemeMode themeMode;
 }
