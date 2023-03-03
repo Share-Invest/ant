@@ -64,7 +64,7 @@ class App extends StatelessWidget {
         primaryColor: Colors.white,
         scaffoldBackgroundColor: Colors.black,
       ),
-      home: BalancesScreen(),
+      home: const BalancesScreen(),
       debugShowCheckedModeBanner: false,
     );
   }
