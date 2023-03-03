@@ -11,8 +11,12 @@ class BalancesScreen extends StatelessWidget {
         future: User.isLogin(context),
         builder: (_, snapshot) => snapshot.hasData
             ? snapshot.data!
-            : const Center(
-                child: CircularProgressIndicator(),
+            : Center(
+                child: CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(
+                    Theme.of(context).primaryColor,
+                  ),
+                ),
               ),
       ),
     );
