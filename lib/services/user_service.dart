@@ -1,3 +1,4 @@
+import 'package:ant/widgets/balances_widget.dart';
 import 'package:ant/widgets/login_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
@@ -77,14 +78,26 @@ class User {
               info.id,
               info.appId,
               info.expiresIn,
+              auth?.accessToken,
+              auth?.refreshToken,
+              auth?.idToken,
+              user.kakaoAccount?.name,
               user.kakaoAccount?.email,
+              user.groupUserToken,
             },
           );
         }
-        break;
+        return Balances(
+          id: info.id,
+          name: user.kakaoAccount?.name,
+          token: auth?.accessToken,
+        );
     }
     return const Center(
-      child: AutoSizeText('balances'),
+      child: AutoSizeText(
+        'The account does not exist.',
+        maxLines: 1,
+      ),
     );
   }
 }
