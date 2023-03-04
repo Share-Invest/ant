@@ -37,7 +37,7 @@ class User {
             if (kDebugMode) {
               switch (e.runtimeType) {
                 case PlatformException:
-                  final p = (e as PlatformException);
+                  final p = e as PlatformException;
                   print(
                     {
                       p.code,
