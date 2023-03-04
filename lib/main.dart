@@ -53,12 +53,20 @@ class App extends StatelessWidget {
             statusBarIconBrightness: Brightness.light,
           ),
         ),
-        textTheme: const TextTheme(
+        textTheme: TextTheme(
           bodySmall: TextStyle(
             color: Colors.white,
+            fontSize: textScale * 8 * 3,
           ),
           bodyMedium: TextStyle(
             color: Colors.white,
+            fontSize: textScale * 8 * 4,
+            fontWeight: FontWeight.bold,
+          ),
+          bodyLarge: TextStyle(
+            color: Colors.white,
+            fontSize: textScale * 8 * 5,
+            fontWeight: FontWeight.w900,
           ),
         ),
         primaryColor: Colors.white,
