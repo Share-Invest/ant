@@ -50,12 +50,14 @@ class User {
 
                 case KakaoAuthException:
                   final ka = e as KakaoAuthException;
-                  print({
-                    ka.error,
-                    ka.errorDescription,
-                    ka.message,
-                    await KakaoSdk.origin,
-                  });
+                  print(
+                    {
+                      ka.error,
+                      ka.errorDescription,
+                      ka.message,
+                      await KakaoSdk.origin,
+                    },
+                  );
                   break;
               }
             }
