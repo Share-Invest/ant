@@ -2,6 +2,7 @@ import 'package:ant/widgets/login_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -28,9 +29,37 @@ class User {
         OAuthToken? auth;
 
         if ((await AuthApi.instance.hasToken()) == false) {
-          auth = await isKakaoTalkInstalled()
-              ? await UserApi.instance.loginWithKakaoTalk()
-              : await UserApi.instance.loginWithKakaoAccount();
+          try {
+            auth = await isKakaoTalkInstalled()
+                ? await UserApi.instance.loginWithKakaoTalk()
+                : await UserApi.instance.loginWithKakaoAccount();
+          } catch (e) {
+            if (kDebugMode) {
+              switch (e.runtimeType) {
+                case PlatformException:
+                  final p = (e as PlatformException);
+                  print(
+                    {
+                      p.code,
+                      p.details,
+                      p.message,
+                      p.stacktrace,
+                    },
+                  );
+                  break;
+
+                case KakaoAuthException:
+                  final ka = e as KakaoAuthException;
+                  print({
+                    ka.error,
+                    ka.errorDescription,
+                    ka.message,
+                    await KakaoSdk.origin,
+                  });
+                  break;
+              }
+            }
+          }
         }
         final info = await UserApi.instance.accessTokenInfo();
         final user = await UserApi.instance.me();
