@@ -1,6 +1,5 @@
-import 'package:ant/widgets/balances_widget.dart';
+import 'package:ant/models/balance_model.dart';
 import 'package:ant/widgets/login_widget.dart';
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +8,7 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class User {
-  static Future<Widget> isLogin(BuildContext context) async {
+  static Future<BalanceModel> isLogin(BuildContext context) async {
     final prefs = await SharedPreferences.getInstance();
     final login = prefs.getString('login');
 
@@ -87,17 +86,14 @@ class User {
             },
           );
         }
-        return Balances(
+        return BalanceModel(
           id: info.id,
           name: user.kakaoAccount?.name,
-          token: auth?.accessToken,
+          type: login,
         );
     }
-    return const Center(
-      child: AutoSizeText(
-        'The account does not exist.',
-        maxLines: 1,
-      ),
+    return BalanceModel(
+      type: login,
     );
   }
 }
