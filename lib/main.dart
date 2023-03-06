@@ -42,6 +42,7 @@ class App extends StatelessWidget {
         useMaterial3: true,
         appBarTheme: AppBarTheme(
           backgroundColor: Colors.black,
+          centerTitle: true,
           titleTextStyle: TextStyle(
             color: Colors.white,
             fontSize: textScale * 8 * 3,

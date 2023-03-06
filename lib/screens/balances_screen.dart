@@ -7,10 +7,25 @@ class BalancesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isLogin = User.isLogin(context);
+
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: FutureBuilder(
+          future: isLogin,
+          builder: (_, snapshot) => snapshot.hasData
+              ? AutoSizeText(
+                  snapshot.data!.name ?? '',
+                )
+              : CircularProgressIndicator(
+                  valueColor: AlwaysStoppedAnimation(
+                    Theme.of(context).primaryColor,
+                  ),
+                ),
+        ),
+      ),
       body: FutureBuilder(
-        future: User.isLogin(context),
+        future: isLogin,
         builder: (_, snapshot) => snapshot.hasData
             ? Column(
                 mainAxisAlignment: MainAxisAlignment.start,
