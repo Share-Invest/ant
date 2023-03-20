@@ -1,25 +1,42 @@
-import 'package:ant/screens/balances_screen.dart';
+import 'package:ant/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   await dotenv.load(
     fileName: '.env',
   );
-  runApp(const App());
+  KakaoSdk.init(
+    nativeAppKey: dotenv.env['KAKAO_NATIVE_APP_KEY'],
+  );
+  runApp(
+    const ProviderScope(
+      overrides: [],
+      child: App(),
+    ),
+  );
 }
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
     final textScale = MediaQuery.textScaleFactorOf(context);
 
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: ref.watch(routerProvider),
       themeMode: ThemeMode.system,
       title: 'Algorithmic-Trading',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
         appBarTheme: AppBarTheme(
@@ -72,8 +89,6 @@ class App extends StatelessWidget {
         primaryColor: Colors.white,
         scaffoldBackgroundColor: Colors.black,
       ),
-      home: const BalancesScreen(),
-      debugShowCheckedModeBanner: false,
     );
   }
 }
