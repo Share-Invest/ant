@@ -1,7 +1,7 @@
 import 'dart:async';
 
+import 'package:ant/features/assets/views/assets_screen.dart';
 import 'package:ant/features/authentication/repos/kakao_authentication_repo.dart';
-import 'package:ant/features/authentication/views/login_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -24,7 +24,7 @@ class KakaoAuthPresenter extends AsyncNotifier<void> {
       _repository.hasError(state.error);
     }
     if (state.hasValue && context.mounted) {
-      context.goNamed(LoginScreen.routeName);
+      context.go(AssetsScreen.routeUrl);
     }
   }
 }
