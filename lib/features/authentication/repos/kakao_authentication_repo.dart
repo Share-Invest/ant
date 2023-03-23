@@ -4,19 +4,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 class KakaoAuthenticationRepository {
-  Future<bool> get isLoggedIn async {
+  Future<Account?> get user async {
     final acc = (await getUser()).kakaoAccount;
 
     if (kDebugMode) {
       print(acc);
 
-      name = acc?.email ?? '';
-
-      return acc?.email?.isNotEmpty ?? false;
+      return acc;
     }
-    name = acc?.name ?? '';
-
-    return acc?.name?.isNotEmpty ?? false;
+    return acc;
   }
 
   Future<OAuthToken> _kakaoSignIn() async {
@@ -64,8 +60,6 @@ class KakaoAuthenticationRepository {
       print(await KakaoSdk.origin);
     }
   }
-
-  late String name;
 
   final _kakaoAuth = UserApi.instance;
 }
