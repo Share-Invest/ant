@@ -39,7 +39,7 @@ class App extends ConsumerWidget {
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
       themeMode: ThemeMode.system,
-      title: 'Algorithmic-Trading',
+      title: '동학개미운동',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,

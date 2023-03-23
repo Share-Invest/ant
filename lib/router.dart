@@ -29,7 +29,9 @@ final routerProvider = Provider(
           GoRoute(
             path: AssetsScreen.routeUrl,
             name: AssetsScreen.routeName,
-            builder: (context, state) => const AssetsScreen(),
+            builder: (context, state) => AssetsScreen(
+              name: ref.read(kakaoAuthRepo).name,
+            ),
           )
         ],
       )

@@ -1,11 +1,13 @@
-import 'package:ant/features/authentication/presenters/kakao_auth_presenter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AssetsScreen extends ConsumerWidget {
   const AssetsScreen({
     super.key,
+    required this.name,
   });
+  final String name;
+
   static String routeName = 'assets';
   static String routeUrl = '/assets';
 
@@ -16,10 +18,14 @@ class AssetsScreen extends ConsumerWidget {
   ) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('loading. . .'),
+        title: Text(name),
       ),
       body: Column(
-        children: const [],
+        children: const [
+          Center(
+            child: Text('data'),
+          ),
+        ],
       ),
     );
   }
