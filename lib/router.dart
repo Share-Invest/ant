@@ -4,14 +4,15 @@ import 'package:ant/features/authentication/views/login_screen.dart';
 import 'package:ant/features/notifications/notifications_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 final routerProvider = Provider(
   (ref) => GoRouter(
     initialLocation: AssetsScreen.routeUrl,
     redirect: (context, state) async {
-      final isLoggedIn = await ref.read(kakaoAuthRepo).isLoggedIn;
+      user = await ref.read(kakaoAuthRepo).user;
 
-      return isLoggedIn ? null : LoginScreen.routeURL;
+      return user == null ? LoginScreen.routeURL : null;
     },
     routes: [
       ShellRoute(
@@ -29,10 +30,13 @@ final routerProvider = Provider(
           GoRoute(
             path: AssetsScreen.routeUrl,
             name: AssetsScreen.routeName,
-            builder: (context, state) => const AssetsScreen(),
+            builder: (context, state) => AssetsScreen(
+              user: user,
+            ),
           )
         ],
       )
     ],
   ),
 );
+late final Account? user;
