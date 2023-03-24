@@ -30,13 +30,11 @@ final routerProvider = Provider(
           GoRoute(
             path: AssetsScreen.routeUrl,
             name: AssetsScreen.routeName,
-            builder: (context, state) => AssetsScreen(
-              user: user,
-            ),
+            builder: (context, state) => const AssetsScreen(),
           )
         ],
       )
     ],
   ),
 );
-late final Account? user;
+late Account? user;
