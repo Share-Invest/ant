@@ -30,16 +30,13 @@ class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(
-    BuildContext context,
-    WidgetRef ref,
-  ) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textScale = MediaQuery.textScaleFactorOf(context);
 
     return MaterialApp.router(
       routerConfig: ref.watch(routerProvider),
       themeMode: ThemeMode.system,
-      title: 'Algorithmic-Trading',
+      title: '동학개미운동',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
