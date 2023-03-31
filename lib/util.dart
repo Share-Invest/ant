@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -8,6 +10,13 @@ final formatCurrency = NumberFormat.simpleCurrency(
   locale: 'ko_KR',
   decimalDigits: 0,
 );
+Future<bool> setString(String provider) async => await prefs.setString(
+      'LoginProvider',
+      provider,
+    );
+String toJson(Map<String, dynamic> map) => jsonEncode(map);
+
+Map<String, dynamic> fromJson(String body) => jsonDecode(body);
 
 class Gaps {
   static const v1 = SizedBox(height: 1);
