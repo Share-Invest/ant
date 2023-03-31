@@ -30,10 +30,7 @@ class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(
-    BuildContext context,
-    WidgetRef ref,
-  ) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textScale = MediaQuery.textScaleFactorOf(context);
 
     return MaterialApp.router(

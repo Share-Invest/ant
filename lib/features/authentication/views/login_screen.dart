@@ -1,4 +1,5 @@
 import 'package:ant/features/authentication/presenters/kakao_auth_presenter.dart';
+import 'package:ant/util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -34,8 +35,11 @@ class LoginScreen extends ConsumerWidget {
                 child: InkWell(
                   onTap: () {
                     if (kDebugMode) {
-                      print('kakao');
+                      print('KakaoTalk');
                     }
+                    setString(
+                      'KakaoTalk',
+                    );
                     ref.read(kakaoAuthProvider.notifier).kakaoSignIn(context);
                   },
                   splashColor: Theme.of(context).primaryColor,
