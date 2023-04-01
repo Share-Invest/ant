@@ -39,7 +39,7 @@ dependencies:
 
   flutter_dotenv: ^5.0.2
   flutter_riverpod: ^2.3.2
-  
+
   fl_chart: ^0.61.0
 
   google_fonts: ^4.0.3
@@ -80,7 +80,6 @@ flutter:
   assets:
     - .env
     - assets/
-    - assets/images/
     - assets/google_fonts/
     - assets/google_fonts/encode_sans_condensed/
     - assets/google_fonts/lato/

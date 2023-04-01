@@ -16,7 +16,10 @@ Future<bool> setString(String provider) async => await prefs.setString(
     );
 String toJson(Map<String, dynamic> map) => jsonEncode(map);
 
-Map<String, dynamic> fromJson(String body) => jsonDecode(body);
+Map<String, dynamic> fromJson(String? body) =>
+    body != null ? jsonDecode(body) : {};
+
+List<dynamic> fromJsonArr(String? body) => body != null ? jsonDecode(body) : [];
 
 String markTimeAgo(int ticks) {
   final checkedTime = DateTime.fromMicrosecondsSinceEpoch(

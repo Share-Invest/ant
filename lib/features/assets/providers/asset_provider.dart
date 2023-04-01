@@ -1,3 +1,4 @@
+import 'package:ant/features/assets/models/asset_chart_model.dart';
 import 'package:ant/features/assets/models/asset_model.dart';
 import 'package:ant/util.dart';
 import 'package:flutter/foundation.dart';
@@ -6,22 +7,42 @@ import 'package:http/http.dart';
 import 'package:http/retry.dart';
 
 class AssetProvider {
-  Future<AssetModel> getAssetById(
+  Future<AssetChartModel> getAssetStatusTrendById(
+    String scheme,
+    String id,
+    String key,
+  ) async =>
+      AssetChartModel.fromJson(
+        fromJson(
+          await get(
+            Uri.parse(
+              '$_baseUrl/$scheme?id=$id&key=$key',
+            ),
+          ),
+        ),
+      );
+  Future<AssetModel?> getAssetById(
     String id,
     String key,
   ) async {
-    final client = RetryClient(Client());
-
-    try {
-      final res = await client.get(
+    final map = fromJson(
+      await get(
         Uri.parse(
           '$_baseUrl?id=$id&key=$key',
         ),
-      );
+      ),
+    );
+    return map.isNotEmpty ? AssetModel.fromJson(map) : null;
+  }
+
+  Future<String?> get(Uri uri) async {
+    final client = RetryClient(Client());
+
+    try {
+      final res = await client.get(uri);
+
       if (res.statusCode == 200) {
-        return AssetModel.fromJson(
-          fromJson(res.body),
-        );
+        return res.body;
       }
       if (kDebugMode) {
         print(res.statusCode);
@@ -35,10 +56,7 @@ class AssetProvider {
     } finally {
       client.close();
     }
-    throw ArgumentError(
-      'no results found for $id.',
-      key,
-    );
+    return null;
   }
 
   final String _baseUrl =
