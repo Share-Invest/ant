@@ -11,8 +11,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class AssetPresenter extends AsyncNotifier<AssetModel> {
   @override
   FutureOr<AssetModel> build() async {
-    _assetRepository = AssetRepository();
-    _kakaoRepository = KakaoAuthenticationRepository();
+    _assetRepository = ref.read(assetRepository);
+    _kakaoRepository = ref.read(kakaoAuthRepository);
 
     final loginProvider = prefs.getString('LoginProvider');
 
@@ -22,7 +22,9 @@ class AssetPresenter extends AsyncNotifier<AssetModel> {
       case 'KakaoTalk':
         final info = await _kakaoRepository.getUser();
 
-        id = info.id.toString();
+        if (info != null) {
+          id = info.id.toString();
+        }
         break;
     }
     if (kDebugMode) {
