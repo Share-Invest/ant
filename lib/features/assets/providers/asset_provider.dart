@@ -1,5 +1,5 @@
+import 'package:ant/features/assets/models/asset_chart_model.dart';
 import 'package:ant/features/assets/models/asset_model.dart';
-import 'package:ant/features/assets/models/asset_status_trend_model.dart';
 import 'package:ant/util.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -7,27 +7,20 @@ import 'package:http/http.dart';
 import 'package:http/retry.dart';
 
 class AssetProvider {
-  Future<List<AssetStatusTrendModel>> getAssetStatusTrendById(
+  Future<AssetChartModel> getAssetStatusTrendById(
+    String scheme,
     String id,
     String key,
-  ) async {
-    final map = fromJsonArr(
-      await get(
-        Uri.parse(
-          '$_baseUrl/trend?id=$id&key=$key',
+  ) async =>
+      AssetChartModel.fromJson(
+        fromJson(
+          await get(
+            Uri.parse(
+              '$_baseUrl/$scheme?id=$id&key=$key',
+            ),
+          ),
         ),
-      ),
-    );
-    List<AssetStatusTrendModel> list = [];
-
-    for (final e in map) {
-      list.add(
-        AssetStatusTrendModel.fromJson(e),
       );
-    }
-    return list;
-  }
-
   Future<AssetModel?> getAssetById(
     String id,
     String key,

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:ant/features/assets/models/asset_status_trend_model.dart';
+import 'package:ant/features/assets/models/asset_chart_model.dart';
 import 'package:ant/features/assets/repos/asset_repository.dart';
 import 'package:ant/features/authentication/repos/kakao_authentication_repo.dart';
 import 'package:ant/util.dart';
@@ -8,9 +8,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class AssetTrendPresenter extends AsyncNotifier<List<AssetStatusTrendModel>> {
+class AssetTrendPresenter extends AsyncNotifier<AssetChartModel> {
   @override
-  FutureOr<List<AssetStatusTrendModel>> build() async {
+  FutureOr<AssetChartModel> build() async {
     _assetRepository = ref.read(assetRepository);
     _kakaoRepository = ref.read(kakaoAuthRepository);
 
@@ -34,16 +34,11 @@ class AssetTrendPresenter extends AsyncNotifier<List<AssetStatusTrendModel>> {
         id = admin ?? '';
       }
     }
-    final result = await _assetRepository.getAssetStatusTrendById(
+    return await _assetRepository.getAssetStatusTrendById(
+      'aggregate',
       id,
       loginProvider ?? 'KakaoTalk',
     );
-    return result.isNotEmpty
-        ? result
-        : throw ArgumentError(
-            "no results found for $loginProvider.",
-            id,
-          );
   }
 
   late final KakaoAuthenticationRepository _kakaoRepository;
@@ -51,6 +46,6 @@ class AssetTrendPresenter extends AsyncNotifier<List<AssetStatusTrendModel>> {
 }
 
 final assetTrendProvider =
-    AsyncNotifierProvider<AssetTrendPresenter, List<AssetStatusTrendModel>>(
+    AsyncNotifierProvider<AssetTrendPresenter, AssetChartModel>(
   () => AssetTrendPresenter(),
 );
