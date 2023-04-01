@@ -1,3 +1,4 @@
+import 'package:ant/common/widgets/loading_widget.dart';
 import 'package:ant/features/authentication/presenters/kakao_auth_presenter.dart';
 import 'package:ant/util.dart';
 import 'package:flutter/foundation.dart';
@@ -18,11 +19,7 @@ class LoginScreen extends ConsumerWidget {
     return Scaffold(
       body: ModalProgressHUD(
         inAsyncCall: ref.watch(kakaoAuthProvider).isLoading,
-        progressIndicator: const CircularProgressIndicator(
-          valueColor: AlwaysStoppedAnimation(
-            Color(0xFF3B5999),
-          ),
-        ),
+        progressIndicator: const CenterCircularProgressIndicator(),
         child: Padding(
           padding: const EdgeInsets.symmetric(
             horizontal: 16,
@@ -45,19 +42,16 @@ class LoginScreen extends ConsumerWidget {
                   splashColor: Theme.of(context).primaryColor,
                   child: Container(
                     decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          blurRadius: 5,
-                          color:
-                              Theme.of(context).primaryColor.withOpacity(0.35),
-                        ),
-                      ],
                       borderRadius: BorderRadius.circular(
-                        15,
+                        4,
+                      ),
+                      border: Border.all(
+                        style: BorderStyle.solid,
+                        color: Colors.yellow,
                       ),
                     ),
                     child: Image.network(
-                      'https://${dotenv.env['BASE_URL']}/images/buttons/kakao_login_medium_wide.png',
+                      'https://${dotenv.env['BASE']}/images/buttons/kakao_login_medium_wide.png',
                       fit: BoxFit.fill,
                     ),
                   ),

@@ -11,7 +11,7 @@ class KakaoAuthPresenter extends AsyncNotifier<void> {
 
   @override
   FutureOr<void> build() {
-    _repository = ref.read(kakaoAuthRepo);
+    _repository = ref.read(kakaoAuthRepository);
   }
 
   Future<void> kakaoSignIn(BuildContext context) async {

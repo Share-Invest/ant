@@ -5,7 +5,7 @@ import 'package:kakao_flutter_sdk/kakao_flutter_sdk.dart';
 
 class KakaoAuthenticationRepository {
   Future<Account?> get user async {
-    final acc = (await getUser()).kakaoAccount;
+    final acc = (await getUser())?.kakaoAccount;
 
     if (kDebugMode) {
       print(acc);
@@ -40,13 +40,16 @@ class KakaoAuthenticationRepository {
     return tokenInfo;
   }
 
-  Future<User> getUser() async {
-    final user = await _kakaoAuth.me();
+  Future<User?> getUser() async {
+    if (await AuthApi.instance.hasToken()) {
+      final user = await _kakaoAuth.me();
 
-    if (kDebugMode) {
-      print(user);
+      if (kDebugMode) {
+        print(user);
+      }
+      return user;
     }
-    return user;
+    return null;
   }
 
   hasError(Object? error) async {
@@ -64,6 +67,6 @@ class KakaoAuthenticationRepository {
   final _kakaoAuth = UserApi.instance;
 }
 
-final kakaoAuthRepo = Provider(
+final kakaoAuthRepository = Provider(
   (ref) => KakaoAuthenticationRepository(),
 );

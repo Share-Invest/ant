@@ -18,6 +18,49 @@ String toJson(Map<String, dynamic> map) => jsonEncode(map);
 
 Map<String, dynamic> fromJson(String body) => jsonDecode(body);
 
+String markTimeAgo(int ticks) {
+  final checkedTime = DateTime.fromMicrosecondsSinceEpoch(
+    ticks,
+    isUtc: false,
+  );
+  final now = DateTime.now().add(
+    const Duration(
+      hours: 9,
+    ),
+  );
+  final difference = now.difference(checkedTime);
+
+  if (difference.inDays > 0) {
+    return '${difference.inDays} days ago';
+  }
+  if (difference.inHours > 0) {
+    return '${difference.inHours} hours ago';
+  }
+  if (difference.inMinutes > 0) {
+    return '${difference.inMinutes} minutes ago';
+  }
+  if (difference.inSeconds > 0) {
+    return '${difference.inSeconds} seconds ago';
+  }
+  return '';
+}
+
+String getAccount(String? account) {
+  switch (account?.length) {
+    case 10:
+      return '${account!.substring(0, 4)}-${account.substring(4, 8)}';
+  }
+  return '';
+}
+
+Color get color {
+  switch (prefs.getString('loginProvider')) {
+    case 'KakaoTalk':
+      return Colors.yellow;
+  }
+  return const Color(0xFF363636);
+}
+
 class Gaps {
   static const v1 = SizedBox(height: 1);
   static const v2 = SizedBox(height: 2);
