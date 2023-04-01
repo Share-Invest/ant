@@ -10,7 +10,7 @@ final routerProvider = Provider(
   (ref) => GoRouter(
     initialLocation: AssetScreen.routeUrl,
     redirect: (context, state) async {
-      user = await ref.read(kakaoAuthRepo).user;
+      user = await ref.read(kakaoAuthRepository).user;
 
       return user == null ? LoginScreen.routeURL : null;
     },

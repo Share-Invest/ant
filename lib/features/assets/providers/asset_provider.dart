@@ -36,8 +36,8 @@ class AssetProvider {
       client.close();
     }
     throw ArgumentError(
-      'no results found for { }.',
-      id,
+      'no results found for $id.',
+      key,
     );
   }
 
