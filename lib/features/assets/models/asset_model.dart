@@ -31,9 +31,13 @@ class AssetModel {
 class Account {
   String? acc;
   String? date;
+  String? name;
   int? asset;
+  late int ticks;
 
   Account({
+    this.name,
+    required this.ticks,
     this.acc,
     this.date,
     this.asset,
@@ -48,6 +52,10 @@ class Account {
     if (json["asset"] is int) {
       asset = json["asset"];
     }
+    if (json['name'] is String) {
+      name = json['name'];
+    }
+    ticks = json['ticks'];
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -55,6 +63,8 @@ class Account {
     data["acc"] = acc;
     data["date"] = date;
     data["asset"] = asset;
+    data['name'] = name;
+    data['ticks'] = ticks;
 
     return data;
   }
