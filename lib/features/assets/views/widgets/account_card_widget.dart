@@ -5,8 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class AccountCard extends ConsumerWidget {
   const AccountCard({
-    super.key,
     required this.model,
+    super.key,
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) => Align(
@@ -71,7 +71,18 @@ class AccountCard extends ConsumerWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                Gaps.v24,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Gaps.h96,
+                    SizedBox(
+                      height: 64,
+                      child: Image.asset(
+                        'assets/kiwoom_logo.png',
+                      ),
+                    ),
+                  ],
+                )
               ],
             ),
           ),
