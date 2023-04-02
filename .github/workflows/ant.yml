@@ -1,4 +1,4 @@
-name: ant
+name: Flutter App
 
 on:
   push:
