@@ -3,6 +3,9 @@ name: ant
 on:
   push:
     branches: [ "dev" ]
+    
+  discussion:
+    types: [created]
 
 jobs:
   build:
