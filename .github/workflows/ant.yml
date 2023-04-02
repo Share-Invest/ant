@@ -28,7 +28,7 @@ jobs:
     - run: flutter --version
       
     - name: Install packages
-    - run: flutter pub get
+      run: flutter pub get
       
     - name: Build
-    - run: flutter build apk
+      run: flutter build apk
